@@ -2,6 +2,7 @@ package br.com.devmos.apicdc.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,9 +28,15 @@ public class Autor {
 	
 	@NotBlank
 	@Email
+	@Column(unique = true)
 	private String email;
 	
 	private LocalDateTime instateCriacao;
+	
+	@Deprecated
+	public Autor() {
+		
+	}
 
 	public Autor(@NotBlank String nome, String descricao, String email) {
 		this.nome = nome;
