@@ -1,14 +1,21 @@
 package br.com.devmos.apicdc.model;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class NovoAutorForm {
 	
 	@NotBlank
 	private String nome;
-	private String descricao;
-	private String email;
 	
+	@NotBlank
+	@Size(min = 10, max = 400, message = "A descrição deve ter no mínimo 10 e no máximo 400 caracteres")
+	private String descricao;
+	
+	@NotBlank
+	@Email
+	private String email;
 	
 	public String getNome() {
 		return nome;
@@ -27,6 +34,10 @@ public class NovoAutorForm {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Autor novoAutor() {
+		return new Autor(nome, descricao, email);
 	}
 	
 	
