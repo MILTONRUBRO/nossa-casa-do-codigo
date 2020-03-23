@@ -1,5 +1,6 @@
 package br.com.devmos.apicdc.model;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -15,6 +16,7 @@ public class NovoAutorForm {
 	
 	@NotBlank
 	@Email
+	@Column(unique = true)
 	private String email;
 	
 	public String getNome() {
