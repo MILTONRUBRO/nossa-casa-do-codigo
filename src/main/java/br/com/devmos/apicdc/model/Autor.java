@@ -28,7 +28,6 @@ public class Autor {
 	
 	@NotBlank
 	@Email
-	@Column(unique = true)
 	private String email;
 	
 	private LocalDateTime instateCriacao;
