@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -29,7 +30,7 @@ public class Autor {
 	@Email
 	private String email;
 
-	@Future
+	@PastOrPresent
 	private LocalDateTime instateCriacao;
 
 	@Deprecated
