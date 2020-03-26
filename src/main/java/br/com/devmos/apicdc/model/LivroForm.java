@@ -32,6 +32,7 @@ public class LivroForm {
 	@NotBlank
 	private String isbn;
 
+	@NotNull
 	private LocalDateTime dataPublicacao;
 	
 	@NotNull
