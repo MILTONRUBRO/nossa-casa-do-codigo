@@ -13,7 +13,7 @@ import br.com.devmos.apicdc.repositories.LivroRepository;
 public class HomeController {
 	
 	@Autowired
-	LivroRepository livroRepository;
+	private LivroRepository livroRepository;
 	
 	@GetMapping(value="api/home")
 	public Iterable<LivroToHome> home() {
