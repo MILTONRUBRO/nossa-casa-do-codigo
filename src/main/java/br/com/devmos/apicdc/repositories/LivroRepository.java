@@ -1,5 +1,6 @@
 package br.com.devmos.apicdc.repositories;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -14,5 +15,7 @@ public interface LivroRepository extends CrudRepository<Livro, Long>{
 
 	Optional<Livro> findByIsbn(String isbn);
 	
+	@Override
+	Collection<Livro> findAll();
 
 }
