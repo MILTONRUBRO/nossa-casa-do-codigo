@@ -30,4 +30,10 @@ public class Categoria {
 		return "Categoria [nome=" + nome + "]";
 	}
 
+	public String getNome() {
+		return nome;
+	}
+	
+	
+
 }
