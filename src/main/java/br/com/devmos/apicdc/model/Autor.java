@@ -51,4 +51,14 @@ public class Autor {
 				+ instateCriacao + "]";
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	
+
 }
