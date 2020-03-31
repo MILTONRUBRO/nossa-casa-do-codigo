@@ -1,15 +1,23 @@
 package br.com.devmos.apicdc.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Carrinho {
 	
-	private List<LivroCarrinhoDTO> livros = new ArrayList<>();
+	private Set<LivroCarrinhoDTO> livros = new LinkedHashSet<>();
 	
 	@Deprecated
 	public Carrinho() {
@@ -17,7 +25,15 @@ public class Carrinho {
 	}
 
 	public void adiciona(Livro livro) {
-		livros.add(new LivroCarrinhoDTO(livro));
+		
+		LivroCarrinhoDTO novoItem = new LivroCarrinhoDTO(livro);
+		 boolean result = livros.add(novoItem);
+		 
+		 if(!result) {
+			 LivroCarrinhoDTO itemExistente = livros.stream().filter(novoItem :: equals).findFirst().get();
+			 itemExistente.incrementar();
+		 }
+		
 	}
 	
 	public static Carrinho create(Optional<String> jsonCarrinho) {
@@ -35,10 +51,23 @@ public class Carrinho {
 		return "Carrinho [livros=" + livros + "]";
 	}
 
-	public List<LivroCarrinhoDTO> getLivros() {
+	public Set<LivroCarrinhoDTO> getLivros() {
 		return livros;
 	}
+
+	public void atualiza(@NotNull Livro livro, @Positive int novaQuantidade) {
+		LivroCarrinhoDTO livroExistente = new LivroCarrinhoDTO(livro);
+		Optional<LivroCarrinhoDTO> possiveltem = livros.stream().filter(livroExistente :: equals).findFirst();
+		
+		LivroCarrinhoDTO itemExistente = possiveltem.get();
+		
+		itemExistente.atualizaQuantidade(novaQuantidade);
+		
+	}
 	
+	public BigDecimal getTotal() {
+		return livros.stream().map(item -> item.getTotal()).reduce(BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
+	}
 	
 
 }
